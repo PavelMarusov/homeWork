@@ -2,6 +2,7 @@ package com.example.homework1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +13,15 @@ public class MainActivity extends AppCompatActivity {
     TextView showValue;
     Double operand = null;
     String lastOperation = "=";
+    String text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showValue = findViewById(R.id.text_view);
+        final  Intent intent = getIntent();
+
 
     }
 
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         switch (lastOperation) {
             case "=":
                 operand = number;
+
                 break;
             case "/":
                 if (number == 0) {
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "-":
                 operand -= number;
+
                 break;
         }
 
@@ -112,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
             onAction(Double.valueOf(num), str);
         } catch (NumberFormatException nfe) {}
         showValue.setText(operand.toString());
-        operand=null;
+        Intent intent1 = new Intent();
+        setResult(RESULT_OK,intent1);
+        intent1.putExtra("key",operand.toString());
+
+        finish();
 
     }
 
